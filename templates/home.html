@@ -1,5 +1,22 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<div id = "page-wrapper">
+    <div id="app-container">
+        <div id="app-window">
+            <div id = "welcome">Social Playlist</div>
+            <div id = "login-container">
+                <a href = "{{ url_for('login') }}">
+                    <button id = "login" >LOGIN</button>
+                </a>
+            </div>
+            <div id = "sign-up-container">
+                <a href = "{{ url_for('signup') }}">
+                    <button id = "sign-up">SIGN UP</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

@@ -1,10 +1,8 @@
-body {
-    margin: 0;
+#page-wrapper {
     background-color: #000012;
     width: 100vw;
     height: 100vh;
 }
-
 #app-container {
     height: 100%;
     width: 50vw;
@@ -63,5 +61,4 @@ body {
     font-size: 30px;
     letter-spacing: 1.5px;
 }
-
 

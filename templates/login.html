@@ -2,4 +2,43 @@
 
 {% block content %}
 
+    <h1> {{ title }} </h1>
+
+    <div class = "d-flex justify-content-md-center">
+        <form class="needs-validation" method = "POST" action = "" novalidate>
+            {{ form.hidden_tag() }} <!--Prevents CRSF -->
+            <div class = "form-group">
+                {{  form.email.label(class="form-control-label") }}
+                <!--Validate input and print errors if needed-->
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-md is-invalid") }} <!-- Bootstrap required classes -->
+                    <div class="invalid-feedback">  <!-- Bootstrap required class -->
+                        {% for err in form.email.errors %}
+                            <span>{{ err }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{  form.email(class="form-control form-control-md") }}
+                {% endif %}
+            </div>
+            <div class = "form-group">
+                {{  form.password.label(class="form-control-label") }}
+                <!--Validate input and print errors if needed-->
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-md is-invalid") }} <!-- Bootstrap required classes -->
+                    <div class="invalid-feedback">  <!-- Bootstrap required class, goes with is-invalid  -->
+                        {% for err in form.password.errors %}
+                            <span>{{ err }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{  form.password(class="form-control form-control-md") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{  form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+
 {% endblock %}

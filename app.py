@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = secrets.token_hex(16)
 
 @app.route('/')
 def mainPage():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():

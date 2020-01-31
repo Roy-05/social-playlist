@@ -9,12 +9,16 @@
        <div id="app-container">
            <div id="app-window">
                <div id = "welcome">Social Playlist</div>
-               <div id = "login-container">
-                   <button id = "login">LOGIN</button>
-               </div>
-               <div id = "sign-up-container">
-                   <button id = "sign-up">SIGN UP</button>
-               </div>
+                    <div id = "login-container">
+                        <a href = "{{ url_for('login') }}">
+                            <button id = "login" >LOGIN</button>
+                        </a>
+                    </div>
+                    <div id = "sign-up-container">
+                        <a href = "{{ url_for('signup') }}">
+                            <button id = "sign-up">SIGN UP</button>
+                        </a>
+                    </div>
            </div>
        </div>
     </body>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 from forms import RegForm, LoginForm
 import secrets
+from flask_login import logout_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_hex(16)
@@ -28,6 +29,14 @@ def login():
         return redirect(url_for('mainPage'))
     return render_template('login.html', title='Login', form=form)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run()
+
+
+# hello

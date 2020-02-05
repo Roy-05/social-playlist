@@ -5,7 +5,7 @@
 
     <div class = "d-flex justify-content-md-center">
         <form class="needs-validation" method = "POST" action = "" novalidate>
-            {{ form.hidden_tag() }} <!--Prevents CRSF -->
+            {{ form.hidden_tag() }} <!--Prevents CSRF -->
             <div class = "form-group">
                 {{  form.username.label(class="form-control-label") }}
 
@@ -69,7 +69,7 @@
         </form>
     </div>
 
-    <div class="">
+    <div class="d-flex justify-content-md-center">
         <small class="text-muted">
             Already have an account?    <a href="{{ url_for('login') }}">Login</a>
         </small>

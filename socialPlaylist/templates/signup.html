@@ -4,7 +4,7 @@
     <h1> {{ title }} </h1>
 
     <div class = "d-flex justify-content-md-center">
-        <form class="needs-validation" method = "POST" action = "" novalidate>
+        <form method = "POST" action = "">
             {{ form.hidden_tag() }} <!--Prevents CSRF -->
             <div class = "form-group">
                 {{  form.username.label(class="form-control-label") }}
@@ -32,7 +32,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{  form.username(class="form-control form-control-md") }}
+                    {{  form.email(class="form-control form-control-md") }}
                 {% endif %}
             </div>
             <div class = "form-group">
@@ -46,7 +46,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{  form.username(class="form-control form-control-md") }}
+                    {{  form.password(class="form-control form-control-md") }}
                 {% endif %}
             </div>
             <div class = "form-group">
@@ -60,7 +60,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{  form.username(class="form-control form-control-md") }}
+                    {{  form.confirm_password(class="form-control form-control-md") }}
                 {% endif %}
             </div>
             <div class="form-group d-flex justify-content-md-center">

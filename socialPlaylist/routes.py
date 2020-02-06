@@ -1,8 +1,6 @@
 
 from flask import Flask, render_template, url_for, flash, redirect
-from socialPlaylist import app #, db
-
-
+from socialPlaylist import app, LoginForm, RegForm  # , db
 
 @app.route('/')
 def mainPage():

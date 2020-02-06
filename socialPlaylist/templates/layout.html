@@ -40,18 +40,22 @@
 {#            </form>#}
           </div>
         </nav>
-
-        <!--Display flash messages if exists. Defined in routes.-->
-        {% with msgs = get_flashed_messages(with_categories=true) %}
-            {% if msgs %}
-                {% for cat, msg in msgs %} <!-- Category and message -->
-                    <div class = "alert">
-                        {{ msg }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
+        <main role ="main" class="container d-flex justify-content-md-center">
+            <div class = "row">
+                <div class = "col-md-8">
+                    <!--Display flash messages if exists. Defined in routes.-->
+                    {% with msgs = get_flashed_messages(with_categories=true) %}
+                        {% if msgs %}
+                            {% for cat, msg in msgs %} <!-- Category and message -->
+                                <div class = "alert alert-{{ cat }}">
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </main>
         {% block content %} {% endblock %}
 
         <!-- Optional JavaScript -->

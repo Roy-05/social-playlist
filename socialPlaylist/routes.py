@@ -14,7 +14,16 @@ def signup():
     form = RegForm()
     # Validate based on data required and parameters listed in RegForm()
     if form.validate_on_submit():
-        flash('Thanks for signing up!', 'success')
+        # Instantiate user
+        # Add user to session
+        # Commit user to database
+        usr = User()
+        usr.username = form.username.data
+        usr.email = form.email.data
+        usr.set_password(form.password.data)  # Password is hashed in User model
+        db.session.add(usr)
+        db.session.commit()
+        flash('Thanks for signing up! Account created for {form.username.data}', 'success')
         return redirect(url_for('index'))
     return render_template('signup.html', title='Sign Up', form=form)
 

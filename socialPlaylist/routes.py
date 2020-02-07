@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, request, url_for, flash, redirect
 from socialPlaylist.forms import LoginForm, RegForm
 from flask_login import current_user, login_user
 from socialPlaylist.models import User

@@ -1,6 +1,6 @@
 from flask import render_template, request, url_for, flash, redirect, request
 from socialPlaylist.forms import LoginForm, RegForm
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 from socialPlaylist.models import User
 from socialPlaylist import app, db
 
@@ -31,6 +31,11 @@ def login():
 def playlist():
     return render_template('playlist.html')
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+    
 def submitLogin(form):
     user = User.query.filter_by(email=form.email.data).first()
     if user is None or not user.check_password(form.password.data):

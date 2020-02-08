@@ -1,6 +1,21 @@
 const nav = document.getElementsByClassName('navbar')[0],
+    signup = document.getElementById('nav-signup'),
+    login = document.getElementById('nav-login'),
+    logout = document.getElementById('nav-logout'),
     path = window.location.pathname;
 
+//Display the appropiate navbar options on each page
+//For example, we don't want logout as an option on the login, signup page. 
 if (path === '/') {
     nav.className += ' hidden';
+}
+else if(path === '/signup' || path === '/login') {
+    logout.className += ' hidden';
+}
+else if(path === '/playlist') {
+    signup.className += ' hidden';
+    login.className += ' hidden';
+}
+else if(path === '/logout') {
+    //no -op
 }

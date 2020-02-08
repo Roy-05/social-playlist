@@ -34,7 +34,7 @@
     justify-content: center;
 }
 
-#login {
+#main-login {
     background-color: #1DB954;
     outline: none;
     width: 40vw;
@@ -51,7 +51,7 @@
     justify-content: center;
 }
 
-#sign-up {
+#main-signup {
     background-color: #E7E7D8;;
     outline: none;
     width: 40vw;

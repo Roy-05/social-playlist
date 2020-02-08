@@ -27,3 +27,16 @@ This is an Agile XP Project built for CS361: Software Engineering W2020.
   * Saket Roy
   * Yan Liong Tan
   
+
+## Quickstart
+
+examples users
+
+admin@example.com : admin
+guest@example.com : guest
+
+
+```
+flask shell
+>>> from socialPlaylist import db
+>>> db.create_all()

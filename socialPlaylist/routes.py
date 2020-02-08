@@ -33,8 +33,8 @@ def submitLogin(form):
         flash('Invalid username or password')
         return redirect(url_for('login'))
     login_user(user)
-    flash('Logged In!', 'success')
-    return redirect(url_for('index'))
+    #flash('Logged In!', 'success')
+    return render_template('playlist.html')
 
 def showLoginForm(form):
     return render_template('login.html', title='Login', form=form)

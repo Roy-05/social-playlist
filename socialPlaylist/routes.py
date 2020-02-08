@@ -20,12 +20,16 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('playlist'))
     form = LoginForm()
     if request.method == 'POST':
         return submitLogin(form)
     elif request.method == 'GET':
         return showLoginForm(form)
+
+@app.route('/playlist')
+def playlist():
+    return render_template('playlist.html')
 
 def submitLogin(form):
     user = User.query.filter_by(email=form.email.data).first()
@@ -34,7 +38,7 @@ def submitLogin(form):
         return redirect(url_for('login'))
     login_user(user)
     #flash('Logged In!', 'success')
-    return render_template('playlist.html')
+    return redirect(url_for('playlist'))
 
 def showLoginForm(form):
     return render_template('login.html', title='Login', form=form)

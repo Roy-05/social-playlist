@@ -7,14 +7,20 @@ const nav = document.getElementsByClassName('navbar')[0],
 //Display the appropiate navbar options on each page
 //For example, we don't want logout as an option on the login, signup page. 
 if (path === '/') {
-    nav.className += ' hidden';
+    $(nav).addClass("hidden");
 }
-else if(path === '/signup' || path === '/login') {
-    logout.className += ' hidden';
+else if(path === '/signup') {
+    $(logout).addClass("hidden");
+    $(signup).addClass("active");
+
+}
+else if(path === '/login') {
+    $(logout).addClass("hidden");
+    $(login).addClass("active");
 }
 else if(path === '/playlist') {
-    signup.className += ' hidden';
-    login.className += ' hidden';
+    $(signup).addClass("hidden");
+    $(login).addClass("hidden");
 }
 else if(path === '/logout') {
     //no -op

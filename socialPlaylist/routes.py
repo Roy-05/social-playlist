@@ -1,6 +1,6 @@
-from flask import render_template, request, url_for, flash, redirect
+from flask import render_template, request, url_for, flash, redirect, request
 from socialPlaylist.forms import LoginForm, RegForm
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 from socialPlaylist.models import User
 from socialPlaylist import app, db
 
@@ -20,21 +20,30 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('playlist'))
     form = LoginForm()
     if request.method == 'POST':
         return submitLogin(form)
     elif request.method == 'GET':
         return showLoginForm(form)
 
+@app.route('/playlist')
+def playlist():
+    return render_template('playlist.html')
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+    
 def submitLogin(form):
     user = User.query.filter_by(email=form.email.data).first()
     if user is None or not user.check_password(form.password.data):
         flash('Invalid username or password')
         return redirect(url_for('login'))
     login_user(user)
-    flash('Logged In!', 'success')
-    return redirect(url_for('index'))
+    #flash('Logged In!', 'success')
+    return redirect(url_for('playlist'))
 
 def showLoginForm(form):
     return render_template('login.html', title='Login', form=form)

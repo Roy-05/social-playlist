@@ -34,31 +34,56 @@
     justify-content: center;
 }
 
-#login {
-    background-color: #1DB954;
-    outline: none;
-    width: 40vw;
-    max-width: 350px;
-    height: 10vh;
-    border-radius: 25px;
-    font-size: 30px;
-    letter-spacing: 1.5px;
-}
-
 #sign-up-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#sign-up {
-    background-color: #E7E7D8;;
+.home-button {
     outline: none;
     width: 40vw;
     max-width: 350px;
+    min-width: 150px;
     height: 10vh;
     border-radius: 25px;
     font-size: 30px;
     letter-spacing: 1.5px;
 }
 
+#main-login {
+    background-color: #1DB954;
+    
+}
+
+#main-signup {
+    background-color: #E7E7D8;;
+}
+
+@media screen and (max-width: 1000px) {
+    #app-container {
+        width: 80vw;
+    }
+    .home-button {
+        width: 25vw;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #welcome {
+        font-size: 11vw;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 800px) {
+    #welcome {
+        font-size: 9vw;
+    }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1000px) {
+    #welcome {
+        font-size: 8vw;
+    }
+}

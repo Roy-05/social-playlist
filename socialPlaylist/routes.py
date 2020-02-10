@@ -22,7 +22,7 @@ def signup():
         usr.set_password(form.password.data)  # Password is hashed in User model
         db.session.add(usr)
         db.session.commit()
-        flash('Thanks for signing up! Account created for {form.username.data}', 'success')
+        flash(f'Thanks for signing up! Account created for {form.username.data}', 'success')
         return redirect(url_for('index'))
     return render_template('signup.html', title='Sign Up', form=form)
 

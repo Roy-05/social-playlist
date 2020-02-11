@@ -83,5 +83,5 @@ def showLoginForm(form):
 
 
 # These commands will delete all entries from a Model
-# db.session.query(Model).delete()
+# db.session.query(Playlists).delete()
 # db.session.commit()

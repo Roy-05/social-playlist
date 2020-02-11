@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for, flash, redirect, request
-from socialPlaylist.forms import LoginForm, RegForm
+from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm
 from flask_login import current_user, login_user, logout_user, login_required, user_unauthorized
-from socialPlaylist.models import User
+from socialPlaylist.models import User, Playlists
 from socialPlaylist import app, db, login as loginManager
 
 @app.route('/')
@@ -34,10 +34,27 @@ def login():
     elif request.method == 'GET':
         return showLoginForm(form)
 
-@app.route('/playlist')
+@app.route('/playlist', methods =['GET', 'POST'])
 @login_required
 def playlist():
-    return render_template('playlist.html')
+    form = CreatePlaylistForm()
+    if(request.method == 'POST'):
+        return addNewPlaylist(form)
+
+    return render_template('playlist.html', form=form, user = current_user.username, playlists = getPlaylists())
+
+def playlistModal(form): 
+    return render_template('playlist.html', form=form, user = current_user.username)
+
+def addNewPlaylist(form):
+    if form.validate_on_submit():
+        playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
+        db.session.add(playlist)
+        db.session.commit()
+        return redirect(url_for('playlist'))
+
+def getPlaylists():
+    return Playlists.query.filter_by(username=current_user.username)
 
 @app.route('/logout')
 @login_required
@@ -62,3 +79,9 @@ def submitLogin(form):
 
 def showLoginForm(form):
     return render_template('login.html', title='Login', form=form)
+
+
+
+# These commands will delete all entries from a Model
+# db.session.query(Playlists).delete()
+# db.session.commit()

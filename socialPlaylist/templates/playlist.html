@@ -43,7 +43,13 @@ aria-hidden="true">
 </div>
 <div id="playlists">
     {% for playlist in playlists%}
-    <div>{{playlist.playlist_name}}</div>
+    <div class="card" style="width: 12rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{playlist.playlist_name}}</h5>
+          <p class="card-text">Some Optional Text.</p>
+          <a href="" class="btn btn-primary">View Playlist</a>
+        </div>
+      </div>
     {% endfor %}
 </div>
 

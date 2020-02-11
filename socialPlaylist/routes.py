@@ -79,3 +79,9 @@ def submitLogin(form):
 
 def showLoginForm(form):
     return render_template('login.html', title='Login', form=form)
+
+
+
+# These commands will delete all entries from a Model
+# db.session.query(Model).delete()
+# db.session.commit()

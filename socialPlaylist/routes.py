@@ -41,8 +41,8 @@ def playlist():
     if(request.method == 'GET'):
         return playlistModal(form) 
 
-def playlistModal(form):
-    return render_template('playlist.html', title='Create New Playlist', form=form)
+def playlistModal(form): 
+    return render_template('playlist.html', title='Create New Playlist', form=form, user = current_user.username)
 
 @app.route('/logout')
 @login_required

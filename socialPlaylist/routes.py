@@ -1,5 +1,5 @@
 from flask import render_template, request, url_for, flash, redirect, request
-from socialPlaylist.forms import LoginForm, RegForm
+from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm
 from flask_login import current_user, login_user, logout_user, login_required, user_unauthorized
 from socialPlaylist.models import User
 from socialPlaylist import app, db, login as loginManager
@@ -34,10 +34,15 @@ def login():
     elif request.method == 'GET':
         return showLoginForm(form)
 
-@app.route('/playlist')
+@app.route('/playlist', methods =['GET', 'POST'])
 @login_required
 def playlist():
-    return render_template('playlist.html')
+    if(request.method == 'GET'):
+        form = CreatePlaylistForm()
+        return playlistModal(form) 
+
+def playlistModal(form):
+    return render_template('playlist.html', title='Create New Playlist', form=form)
 
 @app.route('/logout')
 @login_required

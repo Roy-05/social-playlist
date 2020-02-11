@@ -30,3 +30,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class CreatePlaylistForm(FlaskForm):
+    playlist_name = StringField('Playlist Name', validators=[DataRequired()])
+    submit = SubmitField('Create')

@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for, flash, redirect, request
 from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm
 from flask_login import current_user, login_user, logout_user, login_required, user_unauthorized
-from socialPlaylist.models import User
+from socialPlaylist.models import User, Playlists
 from socialPlaylist import app, db, login as loginManager
 
 @app.route('/')
@@ -39,11 +39,20 @@ def login():
 def playlist():
     form = CreatePlaylistForm()
     if(request.method == 'GET'):
-        return playlistModal(form) 
+        return playlistModal(form)
+    elif(request.method == 'POST'):
+        return addNewPlaylist(form)
 
 def playlistModal(form): 
-    return render_template('playlist.html', title='Create New Playlist', form=form, user = current_user.username)
+    return render_template('playlist.html', form=form, user = current_user.username)
 
+def addNewPlaylist(form):
+    if form.validate_on_submit():
+        playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
+        db.session.add(playlist)
+        db.session.commit()
+        return redirect(url_for('playlist'))
+    
 @app.route('/logout')
 @login_required
 def logout():

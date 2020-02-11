@@ -37,8 +37,8 @@ def login():
 @app.route('/playlist', methods =['GET', 'POST'])
 @login_required
 def playlist():
+    form = CreatePlaylistForm()
     if(request.method == 'GET'):
-        form = CreatePlaylistForm()
         return playlistModal(form) 
 
 def playlistModal(form):

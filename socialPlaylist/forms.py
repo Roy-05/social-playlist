@@ -34,3 +34,9 @@ class LoginForm(FlaskForm):
 class CreatePlaylistForm(FlaskForm):
     playlist_name = StringField('Playlist Name', validators=[DataRequired()])
     submit = SubmitField('Create')
+
+class AddSongForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    artist_firstname = StringField('Artist First Name', validators=[DataRequired()])
+    artist_lastname = StringField('Artist Last Name', validators=[DataRequired()])
+    submit = SubmitField('Submit')

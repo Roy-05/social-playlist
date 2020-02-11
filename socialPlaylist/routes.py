@@ -16,9 +16,7 @@ def signup():
         # Instantiate user
         # Add user to session
         # Commit user to database
-        usr = User()
-        usr.username = form.username.data
-        usr.email = form.email.data
+        usr = User(username=form.username.data, email=form.email.data)
         usr.set_password(form.password.data)  # Password is hashed in User model
         db.session.add(usr)
         db.session.commit()

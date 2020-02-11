@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for, flash, redirect, request
-from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm
+from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm, AddSongForm
 from flask_login import current_user, login_user, logout_user, login_required, user_unauthorized
-from socialPlaylist.models import User, Playlists
+from socialPlaylist.models import User, Playlists, Song
 from socialPlaylist import app, db, login as loginManager
 
 @app.route('/')
@@ -43,6 +43,31 @@ def playlist():
 
     return render_template('playlist.html', form=form, user = current_user.username, playlists = getPlaylists())
 
+
+
+
+@app.route('/addsong', methods =['GET', 'POST'])
+@login_required
+def addsong():
+    form = AddSongForm()
+    # Validate based on data required and parameters listed in RegForm()
+    if form.validate_on_submit():
+        # Instantiate song
+        # Add song to session
+        # Commit song to database
+        song = Song(title=form.title.data, artist_firstname=form.artist_firstname.data, artist_lastname=form.artist_lastname.data)
+        # Need to link playlist ID
+        # song.playlist_id =
+        db.session.add(song)
+        db.session.commit()
+        flash(f'Song added to playlist!', 'success')
+        return redirect(url_for('index'))
+    return render_template('addsong.html', title='Add Song', form=form)
+
+
+
+
+
 def addNewPlaylist(form):
     if form.validate_on_submit():
         playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
@@ -62,6 +87,7 @@ def logout():
 @loginManager.unauthorized_handler
 def unauthorized():
     """Redirect unauthorized users to Login page."""
+    flash('Please login.')
     return redirect(url_for('login'))
 
 def submitLogin(form):

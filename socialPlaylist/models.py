@@ -30,7 +30,15 @@ class Playlists(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), foreign_key=True) 
     playlist_name = db.Column(db.String(64), index=True)
-
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # References 'User' class (note lower case)
     def __repr__(self):
         return '<Playlist {}>'.format(self.playlist_name)
 
+
+class Song(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    artist_firstname = db.Column(db.String(100), nullable=False)
+    artist_lastname = db.Column(db.String(100), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # References 'User' class (note lower case)
+    playlist_id = db.Column(db.Integer, db.ForeignKey('playlist.id'), nullable=False)  # References 'Playlist' class (note lower case)

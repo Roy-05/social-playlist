@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1> {{ title }} </h1>
+
+    <div class = "d-flex justify-content-md-center">
+        <form method = "POST" action = "">
+            {{ form.hidden_tag() }} <!--Prevents CSRF -->
+            <div class = "form-group">
+                {{  form.title.label(class="form-control-label") }}
+
+                <!--Validate input and print errors if needed-->
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control form-control-md is-invalid") }} <!-- Bootstrap required classes -->
+                    <div class="invalid-feedback">  <!-- Bootstrap required class, goes with is-invalid -->
+                        {% for err in form.title.errors %}
+                            <span>{{ err }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{  form.title(class="form-control form-control-md") }}
+                {% endif %}
+            </div>
+            <div class = "form-group">
+                {{  form.artist_firstname.label(class="form-control-label") }}
+
+                <!--Validate input and print errors if needed-->
+                {% if form.artist_firstname.errors %}
+                    {{ form.artist_firstname(class="form-control form-control-md is-invalid") }} <!-- Bootstrap required classes -->
+                    <div class="invalid-feedback">  <!-- Bootstrap required class, goes with is-invalid -->
+                        {% for err in form.artist_firstname.errors %}
+                            <span>{{ err }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{  form.artist_firstname(class="form-control form-control-md") }}
+                {% endif %}
+            </div>
+            <div class = "form-group">
+                {{  form.artist_lastname.label(class="form-control-label") }}
+
+                <!--Validate input and print errors if needed-->
+                {% if form.artist_lastname.errors %}
+                    {{ form.artist_lastname(class="form-control form-control-md is-invalid") }} <!-- Bootstrap required classes -->
+                    <div class="invalid-feedback">  <!-- Bootstrap required class, goes with is-invalid -->
+                        {% for err in form.artist_lastname.errors %}
+                            <span>{{ err }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{  form.artist_lastname(class="form-control form-control-md") }}
+                {% endif %}
+            </div>
+
+
+
+
+            <div class="form-group">
+                {{  form.submit(class="btn btn-primary") }}
+            </div>
+
+
+
+
+        </form>
+    </div>
+
+    <div class="d-flex justify-content-md-center">
+        <small class="text-muted">
+            Already have an account?    <a href="{{ url_for('login') }}">Login</a>
+        </small>
+    </div>
+{% endblock %}

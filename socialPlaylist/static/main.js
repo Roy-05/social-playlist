@@ -8,7 +8,6 @@ if (path === '/') {
 else if(path === '/signup') {
     $('#nav-logout').addClass("hidden");
     $('#nav-signup').addClass("active");
-
 }
 else if(path === '/login') {
     $('#nav-logout').addClass("hidden");

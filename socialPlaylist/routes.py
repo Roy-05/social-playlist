@@ -43,9 +43,6 @@ def playlist():
 
     return render_template('playlist.html', form=form, user = current_user.username, playlists = getPlaylists())
 
-def playlistModal(form): 
-    return render_template('playlist.html', form=form, user = current_user.username)
-
 def addNewPlaylist(form):
     if form.validate_on_submit():
         playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)

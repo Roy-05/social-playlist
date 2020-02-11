@@ -38,10 +38,10 @@ def login():
 @login_required
 def playlist():
     form = CreatePlaylistForm()
-    if(request.method == 'GET'):
-        return playlistModal(form)
-    elif(request.method == 'POST'):
+    if(request.method == 'POST'):
         return addNewPlaylist(form)
+
+    return render_template('playlist.html', form=form, user = current_user.username, playlists = getPlaylists())
 
 def playlistModal(form): 
     return render_template('playlist.html', form=form, user = current_user.username)
@@ -52,7 +52,10 @@ def addNewPlaylist(form):
         db.session.add(playlist)
         db.session.commit()
         return redirect(url_for('playlist'))
-    
+
+def getPlaylists():
+    return Playlists.query.filter_by(username=current_user.username)
+
 @app.route('/logout')
 @login_required
 def logout():

@@ -41,6 +41,11 @@ aria-hidden="true">
         </div>
     </div>
 </div>
+<div id="playlists">
+    {% for playlist in playlists%}
+    <div>{{playlist.playlist_name}}</div>
+    {% endfor %}
+</div>
 
 
 {% endblock %}

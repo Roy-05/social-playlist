@@ -78,6 +78,20 @@ def addNewPlaylist(form):
 def getPlaylists():
     return Playlists.query.filter_by(username=current_user.username)
 
+
+# remove song
+@app.route('/removesong', methods =['GET', 'POST'])
+@login_required
+def removeSong():
+    playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
+    # song = Song(title=form.title.data, artist_firstname=form.artist_firstname.data, artist_firstname=)
+    # get song from playlist
+    # db.session.delete()
+    # db.session.commit()
+    flash('Song successfully removed!')  # maybe have it so that the song title flashes ?
+    return redirect(url_for('playlist'))
+
+
 @app.route('/logout')
 @login_required
 def logout():

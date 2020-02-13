@@ -65,9 +65,11 @@
         </form>
     </div>
 
+    {% if not current_user.is_authenticated %}
     <div class="d-flex justify-content-md-center">
         <small class="text-muted">
             Already have an account?    <a href="{{ url_for('login') }}">Login</a>
         </small>
     </div>
+    {% endif %}
 {% endblock %}

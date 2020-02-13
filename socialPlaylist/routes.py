@@ -51,7 +51,8 @@ def playlist():
 def addsong():
     form = AddSongForm()
     # Validate based on data required and parameters listed in RegForm()
-    if form.validate_on_submit():
+    form.playlist_id.choices = [(p.id, p.playlist_name) for p in Playlists.query.filter_by(user_id=current_user.id)]    
+    if form.validate_on_submit():        
         # Instantiate song
         # Add song to session
         # Commit song to database

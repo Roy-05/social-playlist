@@ -70,7 +70,11 @@ def addsong():
 
 def addNewPlaylist(form):
     if form.validate_on_submit():
-        playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
+        playlist = Playlists(
+                    username = current_user.username, 
+                    playlist_name = form.playlist_name.data,
+                    user_id = current_user.id
+                    )
         db.session.add(playlist)
         db.session.commit()
         return redirect(url_for('playlist'))

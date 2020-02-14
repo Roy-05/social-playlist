@@ -1,8 +1,10 @@
-from flask import render_template, request, url_for, flash, redirect, request
+from flask import render_template, request, url_for, flash, redirect
 from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm, AddSongForm
 from flask_login import current_user, login_user, logout_user, login_required, user_unauthorized
 from socialPlaylist.models import User, Playlists, Song
 from socialPlaylist import app, db, login as loginManager
+from socialPlaylist.helpers import submitLogin, showLoginForm, getPlaylists, addNewPlaylist
+
 
 @app.route('/')
 def index():
@@ -51,7 +53,8 @@ def playlist():
 def addsong():
     form = AddSongForm()
     # Validate based on data required and parameters listed in RegForm()
-    if form.validate_on_submit():
+    form.playlist_id.choices = [(p.id, p.playlist_name) for p in Playlists.query.filter_by(user_id=current_user.id)]    
+    if form.validate_on_submit():        
         # Instantiate song
         # Add song to session
         # Commit song to database
@@ -63,20 +66,6 @@ def addsong():
         flash(f'Song added to playlist!', 'success')
         return redirect(url_for('index'))
     return render_template('addsong.html', title='Add Song', form=form)
-
-
-
-
-
-def addNewPlaylist(form):
-    if form.validate_on_submit():
-        playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
-        db.session.add(playlist)
-        db.session.commit()
-        return redirect(url_for('playlist'))
-
-def getPlaylists():
-    return Playlists.query.filter_by(username=current_user.username)
 
 
 # remove song
@@ -104,21 +93,3 @@ def unauthorized():
     flash('Please login.')
     return redirect(url_for('login'))
 
-def submitLogin(form):
-    user = User.query.filter_by(email=form.email.data).first()
-    if user is None or not user.check_password(form.password.data):
-        flash('Invalid username or password')
-        return redirect(url_for('login'))
-    login_user(user)
-    #flash('Logged In!', 'success')
-    return redirect(url_for('playlist'))
-
-
-def showLoginForm(form):
-    return render_template('login.html', title='Login', form=form)
-
-
-
-# These commands will delete all entries from a Model
-# db.session.query(Playlists).delete()
-# db.session.commit()

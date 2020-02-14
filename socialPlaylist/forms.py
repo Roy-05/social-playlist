@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from socialPlaylist.models import User
 
@@ -36,6 +36,7 @@ class CreatePlaylistForm(FlaskForm):
     submit = SubmitField('Create')
 
 class AddSongForm(FlaskForm):
+    playlist_id = SelectField('Playlist')
     title = StringField('Title', validators=[DataRequired()])
     artist_firstname = StringField('Artist First Name', validators=[DataRequired()])
     artist_lastname = StringField('Artist Last Name', validators=[DataRequired()])

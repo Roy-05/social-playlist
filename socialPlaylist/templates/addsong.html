@@ -6,6 +6,24 @@
     <div class = "d-flex justify-content-md-center">
         <form method = "POST" action = "">
             {{ form.hidden_tag() }} <!--Prevents CSRF -->
+
+            <div class = "form-group">
+                {{  form.playlist_id.label(class="form-control-label") }}
+
+                <!--Validate input and print errors if needed-->
+                {% if form.playlist_id.errors %}
+                    {{ form.playlist_id(class="form-control form-control-md is-invalid") }} <!-- Bootstrap required classes -->
+                    <div class="invalid-feedback">  <!-- Bootstrap required class, goes with is-invalid -->
+                        {% for err in form.playlist_id.errors %}
+                            <span>{{ err }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{  form.playlist_id(class="form-control form-control-md") }}
+                {% endif %}
+            </div>
+
+
             <div class = "form-group">
                 {{  form.title.label(class="form-control-label") }}
 
@@ -65,9 +83,11 @@
         </form>
     </div>
 
+    {% if not current_user.is_authenticated %}
     <div class="d-flex justify-content-md-center">
         <small class="text-muted">
             Already have an account?    <a href="{{ url_for('login') }}">Login</a>
         </small>
     </div>
+    {% endif %}
 {% endblock %}

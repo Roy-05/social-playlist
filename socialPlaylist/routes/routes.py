@@ -1,18 +1,20 @@
 import sys
 sys.path.append('../')
 from flask import render_template, request, url_for, flash, redirect
-from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm, add_songForm
+from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm, AddSongForm
 from flask_login import current_user, login_user, logout_user, login_required, user_unauthorized
 from socialPlaylist.models import User, Playlists, Song
 from socialPlaylist import app, db, login as loginManager
 from socialPlaylist.helpers.login_helpers import submit_login, show_login_form
 from socialPlaylist.helpers.playlist_helpers import get_playlists, add_new_playlist
 
+
 @app.route('/')
 def index():
     return render_template('home.html')
 
 # LOGIN SECTION: SIGN UP , LOGIN , LOGOUT, UNAUTHORIZED
+
 
 # SIGN UP ROUTE with get and post
 @app.route('/signup', methods=['GET', 'POST'])
@@ -33,6 +35,7 @@ def signup():
 
 # Login ROUTE with get and post
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -43,8 +46,8 @@ def login():
     elif request.method == 'GET':
         return show_login_form(form)
 
-# LOGOUT ROUTE with get and post
 
+# LOGOUT ROUTE with get and post
 @app.route('/logout')
 @login_required
 def logout():
@@ -57,7 +60,9 @@ def unauthorized():
     flash('Please login.')
     return redirect(url_for('login'))
 
+
 # PLAYLIST SECTION
+
 
 # playlist ROUTE
 @app.route('/playlist', methods =['GET', 'POST'])
@@ -73,7 +78,7 @@ def playlist():
 @app.route('/add_song', methods =['GET', 'POST'])
 @login_required
 def add_song():
-    form = add_songForm()
+    form = AddSongForm()
     # Validate based on data required and parameters listed in RegForm()
     form.playlist_id.choices = [(p.id, p.playlist_name) for p in Playlists.query.filter_by(user_id=current_user.id)]
     if form.validate_on_submit():

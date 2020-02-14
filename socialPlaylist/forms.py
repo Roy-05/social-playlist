@@ -26,16 +26,19 @@ class RegForm(FlaskForm):
         if user:
             raise ValidationError('That email is taken.')
 
+
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+
 class CreatePlaylistForm(FlaskForm):
     playlist_name = StringField('Playlist Name', validators=[DataRequired()])
     submit = SubmitField('Create')
 
-class AddSongForm(FlaskForm):
+
+class add_songForm(FlaskForm):
     playlist_id = SelectField('Playlist')
     title = StringField('Title', validators=[DataRequired()])
     artist_firstname = StringField('Artist First Name', validators=[DataRequired()])

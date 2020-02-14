@@ -15,4 +15,4 @@ login.login_message_category = 'info'
 application = app
 
 # Placed below to avoid circular import of app
-from socialPlaylist import routes
+from socialPlaylist.routes import routes

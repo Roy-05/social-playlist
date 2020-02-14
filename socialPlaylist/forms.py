@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Selec
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from socialPlaylist.models import User
 
+
 class RegForm(FlaskForm):
     # These variable names must be used in the html
     username = StringField('Username', validators=[DataRequired(), Length(min=5, max=20)])
@@ -26,14 +27,17 @@ class RegForm(FlaskForm):
         if user:
             raise ValidationError('That email is taken.')
 
+
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+
 class CreatePlaylistForm(FlaskForm):
     playlist_name = StringField('Playlist Name', validators=[DataRequired()])
     submit = SubmitField('Create')
+
 
 class AddSongForm(FlaskForm):
     playlist_id = SelectField('Playlist')

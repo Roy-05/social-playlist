@@ -1,15 +1,22 @@
+import sys
+sys.path.append('../')
 from flask import render_template, request, url_for, flash, redirect
 from socialPlaylist.forms import LoginForm, RegForm, CreatePlaylistForm, AddSongForm
 from flask_login import current_user, login_user, logout_user, login_required, user_unauthorized
 from socialPlaylist.models import User, Playlists, Song
 from socialPlaylist import app, db, login as loginManager
-from socialPlaylist.helpers import submitLogin, showLoginForm, getPlaylists, addNewPlaylist
+from socialPlaylist.helpers.login_helpers import submit_login, show_login_form
+from socialPlaylist.helpers.playlist_helpers import get_playlists, add_new_playlist
 
 
 @app.route('/')
 def index():
     return render_template('home.html')
 
+# LOGIN SECTION: SIGN UP , LOGIN , LOGOUT, UNAUTHORIZED
+
+
+# SIGN UP ROUTE with get and post
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = RegForm()
@@ -26,35 +33,55 @@ def signup():
         return redirect(url_for('index'))
     return render_template('signup.html', title='Sign Up', form=form)
 
+# Login ROUTE with get and post
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('playlist'))
     form = LoginForm()
     if request.method == 'POST':
-        return submitLogin(form)
+        return submit_login(form)
     elif request.method == 'GET':
-        return showLoginForm(form)
+        return show_login_form(form)
 
+
+# LOGOUT ROUTE with get and post
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+@loginManager.unauthorized_handler
+def unauthorized():
+    """Redirect unauthorized users to Login page."""
+    flash('Please login.')
+    return redirect(url_for('login'))
+
+
+# PLAYLIST SECTION
+
+
+# playlist ROUTE
 @app.route('/playlist', methods =['GET', 'POST'])
 @login_required
 def playlist():
     form = CreatePlaylistForm()
     if(request.method == 'POST'):
-        return addNewPlaylist(form)
-
-    return render_template('playlist.html', form=form, user = current_user.username, playlists = getPlaylists())
-
+        return add_new_playlist(form)
+    return render_template('playlist.html', form=form, user = current_user.username, playlists = get_playlists())
 
 
-
-@app.route('/addsong', methods =['GET', 'POST'])
+# add song ROUTE
+@app.route('/add_song', methods =['GET', 'POST'])
 @login_required
-def addsong():
+def add_song():
     form = AddSongForm()
     # Validate based on data required and parameters listed in RegForm()
-    form.playlist_id.choices = [(p.id, p.playlist_name) for p in Playlists.query.filter_by(user_id=current_user.id)]    
-    if form.validate_on_submit():        
+    form.playlist_id.choices = [(p.id, p.playlist_name) for p in Playlists.query.filter_by(user_id=current_user.id)]
+    if form.validate_on_submit():
         # Instantiate song
         # Add song to session
         # Commit song to database
@@ -65,7 +92,7 @@ def addsong():
         db.session.commit()
         flash(f'Song added to playlist!', 'success')
         return redirect(url_for('index'))
-    return render_template('addsong.html', title='Add Song', form=form)
+    return render_template('add_song.html', title='Add Song', form=form)
 
 
 # remove song
@@ -79,17 +106,3 @@ def removeSong():
     # db.session.commit()
     flash('Song successfully removed!')  # maybe have it so that the song title flashes ?
     return redirect(url_for('playlist'))
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-@loginManager.unauthorized_handler
-def unauthorized():
-    """Redirect unauthorized users to Login page."""
-    flash('Please login.')
-    return redirect(url_for('login'))
-

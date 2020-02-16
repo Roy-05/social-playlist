@@ -85,13 +85,14 @@ def add_song():
         # Instantiate song
         # Add song to session
         # Commit song to database
-        song = Song(title=form.title.data, artist_firstname=form.artist_firstname.data, artist_lastname=form.artist_lastname.data)
-        # Need to link playlist ID
-        # song.playlist_id =
+        song = Song(title=form.title.data, 
+            artist_firstname=form.artist_firstname.data, 
+            artist_lastname=form.artist_lastname.data,
+            playlist_id = form.playlist_id.data)
+            
         db.session.add(song)
         db.session.commit()
-        flash(f'Song added to playlist!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('playlist'))
     return render_template('add_song.html', title='Add Song', form=form)
 
 

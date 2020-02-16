@@ -40,7 +40,7 @@ class CreatePlaylistForm(FlaskForm):
 
 
 class AddSongForm(FlaskForm):
-    playlist_id = SelectField('Playlist')
+    playlist_id = SelectField('Playlist', coerce=int)
     title = StringField('Title', validators=[DataRequired()])
     artist_firstname = StringField('Artist First Name', validators=[DataRequired()])
     artist_lastname = StringField('Artist Last Name', validators=[DataRequired()])

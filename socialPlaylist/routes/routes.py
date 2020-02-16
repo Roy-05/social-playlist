@@ -73,10 +73,10 @@ def playlist():
         return add_new_playlist(form)
     return render_template('playlist.html', form=form, user = current_user.username, playlists = get_playlists())
 
-@app.route('/view_playlist', methods =['GET', 'POST'])
+@app.route('/playlist/<p_id>', methods =['GET', 'POST'])
 @login_required
-def view_playlist():
-    return render_template('view_playlist.html')
+def view_playlist(p_id):
+    return render_template('view_playlist.html', p_id=p_id)
 
 # add song ROUTE
 @app.route('/add_song', methods =['GET', 'POST'])
@@ -96,6 +96,7 @@ def add_song():
             
         db.session.add(song)
         db.session.commit()
+        
         return redirect(url_for('playlist'))
     return render_template('add_song.html', title='Add Song', form=form)
 

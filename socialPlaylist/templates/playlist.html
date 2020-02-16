@@ -47,7 +47,7 @@ aria-hidden="true">
         <div class="card-body">
           <h5 class="card-title text-center">{{playlist.playlist_name}}</h5>
           <p class="card-text">Some Optional Text.</p>
-          <a href="" class="btn btn-primary">View Playlist</a>
+          <a href="{{url_for('view_playlist')}}" class="btn btn-primary">View Playlist</a>
         </div>
       </div>
     {% endfor %}

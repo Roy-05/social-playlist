@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Artist</th>
+        <th scope="col">URL</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for song in songs %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{song.title}}</td>
+            <td>{{song.artist_firstname}} {{song.artist_lastname}}</td>
+            <td>{{song.url}}</td>
+          </tr>
+
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -42,12 +42,12 @@ aria-hidden="true">
     </div>
 </div>
 <div id="playlists">
-    {% for playlist in playlists%}
+    {% for playlist in playlists %}
     <div class="card" style="width: 12rem;">
         <div class="card-body">
           <h5 class="card-title text-center">{{playlist.playlist_name}}</h5>
-          <p class="card-text">Some Optional Text.</p>
-          <a href="" class="btn btn-primary">View Playlist</a>
+          <p class="card-text">Songs: {{songs[loop.index - 1]}}</p>
+          <a href= "/playlist/{{playlist.id}}" class="btn btn-primary" id="{{playlist.id}}">View Playlist</a>
         </div>
       </div>
     {% endfor %}

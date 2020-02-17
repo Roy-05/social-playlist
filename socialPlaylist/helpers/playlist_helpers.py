@@ -21,3 +21,11 @@ def add_new_playlist(form):
 
 def get_songs(playlist_id):
     return Song.query.filter_by(playlist_id=playlist_id)
+
+
+def get_num_of_songs():
+    song_count = []
+    for playlist in get_playlists():
+        song_count.append(get_songs(playlist.id).count())
+    
+    return song_count

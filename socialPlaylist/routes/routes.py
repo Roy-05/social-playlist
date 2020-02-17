@@ -76,7 +76,7 @@ def playlist():
 @app.route('/playlist/<p_id>', methods =['GET', 'POST'])
 @login_required
 def view_playlist(p_id):
-    songs = Song.query.filter_by(user_id=current_user.id, playlist_id=int(p_id))
+    songs = Song.query.filter_by(playlist_id=int(p_id))
     return render_template('view_playlist.html', songs=songs)
 
 # add song ROUTE
@@ -93,7 +93,6 @@ def add_song():
         song = Song(title=form.title.data, 
             artist_firstname=form.artist_firstname.data, 
             artist_lastname=form.artist_lastname.data,
-            user_id=current_user.id,
             playlist_id = form.playlist_id.data)
             
         db.session.add(song)

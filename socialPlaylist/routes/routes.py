@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user, login_required, u
 from socialPlaylist.models import User, Playlists, Song
 from socialPlaylist import app, db, login as loginManager
 from socialPlaylist.helpers.login_helpers import submit_login, show_login_form
-from socialPlaylist.helpers.playlist_helpers import get_playlists, add_new_playlist
+from socialPlaylist.helpers.playlist_helpers import get_playlists, add_new_playlist, get_songs
 
 
 @app.route('/')
@@ -71,12 +71,16 @@ def playlist():
     form = CreatePlaylistForm()
     if(request.method == 'POST'):
         return add_new_playlist(form)
-    return render_template('playlist.html', form=form, user = current_user.username, playlists = get_playlists())
+
+    songs = []
+    for playlist in get_playlists():
+        songs.append(get_songs(playlist.id).count())
+    return render_template('playlist.html', form=form, user = current_user.username, playlists = get_playlists(), songs = songs)
 
 @app.route('/playlist/<p_id>', methods =['GET', 'POST'])
 @login_required
 def view_playlist(p_id):
-    songs = Song.query.filter_by(playlist_id=int(p_id))
+    songs = get_songs(int(p_id))
     return render_template('view_playlist.html', songs=songs)
 
 # add song ROUTE

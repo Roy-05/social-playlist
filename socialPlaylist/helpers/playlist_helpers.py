@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect
 from flask_login import current_user, login_user
-from socialPlaylist.models import User, Playlists
+from socialPlaylist.models import User, Playlists, Song
 from socialPlaylist import db
 
 
@@ -18,3 +18,6 @@ def add_new_playlist(form):
         db.session.add(playlist)
         db.session.commit()
         return redirect(url_for('playlist'))
+
+def get_songs(playlist_id):
+    return Song.query.filter_by(playlist_id=playlist_id)

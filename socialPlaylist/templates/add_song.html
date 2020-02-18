@@ -70,7 +70,21 @@
                 {% endif %}
             </div>
 
+            <div class = "form-group">
+                {{  form.song_url.label(class="form-control-label") }}
 
+                <!--Validate input and print errors if needed-->
+                {% if form.song_url.errors %}
+                    {{ form.song_url(class="form-control form-control-md is-invalid") }} <!-- Bootstrap required classes -->
+                    <div class="invalid-feedback">  <!-- Bootstrap required class, goes with is-invalid -->
+                        {% for err in form.asong_url.errors %}
+                            <span>{{ err }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{  form.song_url(class="form-control form-control-md") }}
+                {% endif %}
+            </div>
 
 
             <div class="form-group">

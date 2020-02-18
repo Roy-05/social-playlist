@@ -99,7 +99,9 @@ def add_song():
         song = Song(title=form.title.data, 
             artist_firstname=form.artist_firstname.data, 
             artist_lastname=form.artist_lastname.data,
-            playlist_id = form.playlist_id.data)
+            playlist_id = form.playlist_id.data,
+            user_id=current_user.id,
+            song_url=form.song_url.data)
             
         db.session.add(song)
         db.session.commit()

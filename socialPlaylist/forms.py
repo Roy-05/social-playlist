@@ -44,4 +44,5 @@ class AddSongForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     artist_firstname = StringField('Artist First Name', validators=[DataRequired()])
     artist_lastname = StringField('Artist Last Name', validators=[DataRequired()])
+    song_url = StringField('Song URL', validators=[DataRequired()])
     submit = SubmitField('Submit')

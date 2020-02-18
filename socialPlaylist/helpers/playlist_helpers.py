@@ -20,7 +20,7 @@ def add_new_playlist(form):
         return redirect(url_for('playlist'))
 
 def get_songs(playlist_id):
-    return Song.query.filter_by(playlist_id=playlist_id)
+    return Song.query.filter_by(playlist_id=playlist_id, user_id = current_user.id)
 
 
 def get_num_of_songs():

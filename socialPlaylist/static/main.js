@@ -21,6 +21,7 @@ else if(path === '/login') {
 else if(path === '/playlist' || path.match(/^(\/playlist\/[1-9]|[1-9][0-9]$)/)) {
     $('#nav-signup').addClass("hidden");
     $('#nav-login').addClass("hidden"); 
+    $('#nav-playlist').addClass("active");
 }
 else if(path === '/add_song') {
     $('#nav-signup').addClass("hidden");

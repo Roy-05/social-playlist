@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user, login_required, u
 from socialPlaylist.models import User, Playlists, Song
 from socialPlaylist import app, db, login as loginManager
 from socialPlaylist.helpers.login_helpers import submit_login, show_login_form
-from socialPlaylist.helpers.playlist_helpers import get_playlists, add_new_playlist
+from socialPlaylist.helpers.playlist_helpers import get_playlists, add_new_playlist, get_songs, get_num_of_songs
 
 
 @app.route('/')
@@ -71,8 +71,18 @@ def playlist():
     form = CreatePlaylistForm()
     if(request.method == 'POST'):
         return add_new_playlist(form)
-    return render_template('playlist.html', form=form, user = current_user.username, playlists = get_playlists())
 
+    return render_template('playlist.html',
+        form=form,
+        user = current_user.username,
+        playlists = get_playlists(),
+        songs = get_num_of_songs())
+
+@app.route('/playlist/<p_id>', methods =['GET', 'POST'])
+@login_required
+def view_playlist(p_id):
+    songs = get_songs(int(p_id))
+    return render_template('view_playlist.html', songs=songs)
 
 # add song ROUTE
 @app.route('/add_song', methods =['GET', 'POST'])
@@ -85,24 +95,47 @@ def add_song():
         # Instantiate song
         # Add song to session
         # Commit song to database
-        song = Song(title=form.title.data, artist_firstname=form.artist_firstname.data, artist_lastname=form.artist_lastname.data)
-        # Need to link playlist ID
-        # song.playlist_id =
+        song = Song(title=form.title.data,
+            artist_firstname=form.artist_firstname.data,
+            artist_lastname=form.artist_lastname.data,
+            playlist_id = form.playlist_id.data)
+
         db.session.add(song)
         db.session.commit()
-        flash(f'Song added to playlist!', 'success')
-        return redirect(url_for('index'))
+
+        return redirect(url_for('playlist'))
     return render_template('add_song.html', title='Add Song', form=form)
 
 
 # remove song
-@app.route('/removesong', methods =['GET', 'POST'])
+@app.route('/remove_song', methods =['GET', 'POST'])
 @login_required
-def removeSong():
-    playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
+def remove_Song():
+    # playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
     # song = Song(title=form.title.data, artist_firstname=form.artist_firstname.data, artist_firstname=)
     # get song from playlist
     # db.session.delete()
     # db.session.commit()
-    flash('Song successfully removed!')  # maybe have it so that the song title flashes ?
-    return redirect(url_for('playlist'))
+
+    # if current_user.is_authenticated:
+        flash(f'Song successfully removed!', 'success')  # maybe have it so that the song title flashes ?
+        return redirect(url_for('playlist'))
+
+    # form = CreatePlaylistForm()
+    # if(request.method == 'POST'):
+    #     return add_new_playlist(form)
+    #
+    # return render_template('playlist.html',
+    #     form=form,
+    #     user = current_user.username,
+    #     playlists = get_playlists(),
+    #     songs = get_num_of_songs())
+
+    # form = LoginForm()
+    # if request.method == 'POST':
+    #     return submit_login(form)
+    # elif request.method == 'GET':
+    #     return show_login_form(form)
+
+    # flash('Song successfully removed!')  # maybe have it so that the song title flashes ?
+    # return redirect(url_for('playlist'))

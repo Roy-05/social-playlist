@@ -72,11 +72,11 @@ def playlist():
     if(request.method == 'POST'):
         return add_new_playlist(form)
 
-    
-    return render_template('playlist.html', 
-        form=form, 
-        user = current_user.username, 
-        playlists = get_playlists(), 
+
+    return render_template('playlist.html',
+        form=form,
+        user = current_user.username,
+        playlists = get_playlists(),
         songs = get_num_of_songs())
 
 @app.route('/playlist/<p_id>', methods =['GET', 'POST'])
@@ -96,28 +96,26 @@ def add_song():
         # Instantiate song
         # Add song to session
         # Commit song to database
-        song = Song(title=form.title.data, 
-            artist_firstname=form.artist_firstname.data, 
+        song = Song(title=form.title.data,
+            artist_firstname=form.artist_firstname.data,
             artist_lastname=form.artist_lastname.data,
             playlist_id = form.playlist_id.data,
             user_id=current_user.id,
             song_url=form.song_url.data)
-            
+
         db.session.add(song)
         db.session.commit()
-        
+
         return redirect(url_for('playlist'))
     return render_template('add_song.html', title='Add Song', form=form)
 
 
 # remove song
-@app.route('/removesong', methods =['GET', 'POST'])
+@app.route('/removesong<id>', methods =['DELETE'])
 @login_required
-def removeSong():
-    playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
-    # song = Song(title=form.title.data, artist_firstname=form.artist_firstname.data, artist_firstname=)
-    # get song from playlist
-    # db.session.delete()
-    # db.session.commit()
+def removeSong(id):
+    # playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
+    db.session.delete(song.id)
+    db.session.commit()
     flash('Song successfully removed!')  # maybe have it so that the song title flashes ?
     return redirect(url_for('playlist'))

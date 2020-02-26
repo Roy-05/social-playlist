@@ -1,7 +1,7 @@
 const path = window.location.pathname;
 
 //Display the appropiate navbar options on each page
-//For example, we don't want logout as an option on the login, signup page. 
+//For example, we don't want logout as an option on the login, signup page.
 if (path === '/') {
     $('.navbar').addClass("hidden");
 }
@@ -20,12 +20,12 @@ else if(path === '/login') {
 //The regex matches all strings of the format: '/playlist/{n}' where n is number b/w 1-99
 else if(path === '/playlist' || path.match(/^(\/playlist\/[1-9]|[1-9][0-9]$)/)) {
     $('#nav-signup').addClass("hidden");
-    $('#nav-login').addClass("hidden"); 
+    $('#nav-login').addClass("hidden");
     $('#nav-playlist').addClass("active");
 }
 else if(path === '/add_song') {
     $('#nav-signup').addClass("hidden");
-    $('#nav-login').addClass("hidden"); 
+    $('#nav-login').addClass("hidden");
     $('#nav-add_song').addClass("active");
 }
 else if(path === '/logout') {

@@ -111,11 +111,10 @@ def add_song():
 
 
 # remove song
-@app.route('/removesong<id>', methods =['DELETE'])
+@app.route('/removesong/<id>/<p_id>', methods =['GET'])
 @login_required
-def removeSong(id):
-    # playlist = Playlists(username = current_user.username, playlist_name = form.playlist_name.data)
-    db.session.delete(song.id)
+def removeSong(id, p_id):
+    Song.query.filter_by(id=id).delete()
     db.session.commit()
-    flash('Song successfully removed!')  # maybe have it so that the song title flashes ?
-    return redirect(url_for('playlist'))
+    flash('Song successfully removed!') 
+    return redirect(f'/playlist/{p_id}')

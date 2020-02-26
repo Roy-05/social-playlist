@@ -19,7 +19,7 @@
             <td>{{song.title}}</td>
             <td>{{song.artist_firstname}} {{song.artist_lastname}}</td>
             <td><a href="{{song.song_url}}" target="_blank">Link</a></td>
-            <td><a href="{{ url_for('playlist') }}"><input type="submit" name="" value="Delete"></a></td>
+            <td><a href="/removesong/{{song.id}}/{{song.playlist_id}}"><input type="submit" name="" value="Delete"></a></td>
           </tr>
 
         {% endfor %}
